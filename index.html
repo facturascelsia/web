@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ElectriPago - Gestión de Facturas Eléctricas</title>
+    <style>
+        :root {
+            --primary-color: #0056b3;
+            --secondary-color: #e9f2ff;
+            --accent-color: #ffc107;
+            --text-color: #333;
+            --light-text: #666;
+            --white: #fff;
+            --success: #28a745;
+            --shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            color: var(--text-color);
+            line-height: 1.6;
+            background-color: #f8f9fa;
+        }
+        
+        header {
+            background-color: var(--primary-color);
+            color: var(--white);
+            padding: 1.5rem 0;
+            box-shadow: var(--shadow);
+        }
+        
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            font-size: 1.8rem;
+            font-weight: 700;
+        }
+        
+        .logo-icon {
+            margin-right: 10px;
+            font-size: 2rem;
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        nav li {
+            margin-left: 1.5rem;
+        }
+        
+        nav a {
+            color: var(--white);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        
+        nav a:hover {
+            color: var(--accent-color);
+        }
+        
+        .hero {
+            background: linear-gradient(135deg, var(--primary-color), #003580);
+            color: var(--white);
+            padding: 4rem 0;
+            text-align: center;
+        }
+        
+        .hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 800px;
+            margin: 0 auto 2rem;
+        }
+        
+        .btn {
+            display: inline-block;
+            background-color: var(--accent-color);
+            color: var(--text-color);
+            padding: 0.8rem 1.8rem;
+            border-radius: 4px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        .features {
+            padding: 5rem 0;
+        }
+        
+        .section-title {
+            text-align: center;
+            font-size: 2rem;
+            margin-bottom: 3rem;
+            color: var(--primary-color);
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        
+        .feature-card {
+            background-color: var(--white);
+            border-radius: 8px;
+            padding: 2rem;
+            box-shadow: var(--shadow);
+            transition: transform 0.3s;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .feature-icon {
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+        
+        .feature-card h3 {
+            margin-bottom: 1rem;
+            font-size: 1.4rem;
+        }
+        
+        .payment-section {
+            background-color: var(--secondary-color);
+            padding: 5rem 0;
+        }
+        
+        .payment-methods {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        
+        .payment-method {
+            background-color: var(--white);
+            border-radius: 8px;
+            padding: 2rem;
+            box-shadow: var(--shadow);
+        }
+        
+        .payment-method h3 {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1rem;
+            color: var(--primary-color);
+        }
+        
+        .method-icon {
+            margin-right: 10px;
+            font-size: 1.5rem;
+        }
+        
+        .steps-list {
+            margin-top: 1rem;
+            margin-left: 1.5rem;
+        }
+        
+        .steps-list li {
+            margin-bottom: 0.8rem;
+        }
+        
+        .faq-section {
+            padding: 5rem 0;
+        }
+        
+        .faq-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .faq-item {
+            background-color: var(--white);
+            border-radius: 8px;
+            margin-bottom: 1.5rem;
+            box-shadow: var(--shadow);
+            overflow: hidden;
+        }
+        
+        .faq-question {
+            padding: 1.5rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            user-select: none;
+        }
+        
+        .faq-question:hover {
+            background-color: #f9f9f9;
+        }
+        
+        .faq-answer {
+            padding: 0 1.5rem 1.5rem;
+            border-top: 1px solid #eee;
+        }
+        
+        .contact-section {
+            background-color: var(--secondary-color);
+            padding: 5rem 0;
+        }
+        
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        
+        .contact-card {
+            background-color: var(--white);
+            border-radius: 8px;
+            padding: 2rem;
+            text-align: center;
+            box-shadow: var(--shadow);
+        }
+        
+        .contact-icon {
+            font-size: 2rem;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+        
+        footer {
+            background-color: #333;
+            color: var(--white);
+            padding: 3rem 0 1.5rem;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .footer-column h3 {
+            margin-bottom: 1.5rem;
+            font-size: 1.2rem;
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 0.8rem;
+        }
+        
+        .footer-links a {
+            color: #ddd;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-links a:hover {
+            color: var(--accent-color);
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 1.5rem;
+            border-top: 1px solid #555;
+            font-size: 0.9rem;
+        }
+        
+        /* Responsive design */
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            nav ul {
+                margin-top: 1rem;
+                justify-content: center;
+            }
+            
+            nav li {
+                margin: 0 0.5rem;
+            }
+            
+            .hero h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container header-content">
+            <div class="logo">
+                <span class="logo-icon">⚡</span>
+                ElectriPago
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="#inicio">Inicio</a></li>
+                    <li><a href="#factura">Su Factura</a></li>
+                    <li><a href="#pagos">Métodos de Pago</a></li>
+                    <li><a href="#preguntas">Preguntas Frecuentes</a></li>
+                    <li><a href="#contacto">Contacto</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section class="hero" id="inicio">
+        <div class="container">
+            <h1>Gestión Simple de sus Facturas Eléctricas</h1>
+            <p>Le ofrecemos información clara y soluciones prácticas para entender y pagar sus facturas de electricidad sin complicaciones.</p>
+            <a href="#pagos" class="btn">Descubra Cómo Pagar</a>
+        </div>
+    </section>
+
+    <section class="features" id="factura">
+        <div class="container">
+            <h2 class="section-title">Entendiendo su Factura</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">📊</div>
+                    <h3>Componentes de su Factura</h3>
+                    <p>Una factura de electricidad típica incluye el coste de la energía consumida, impuestos regulados, cargos por potencia contratada y otros conceptos variables. Entender cada componente le ayudará a gestionar mejor su consumo.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📅</div>
+                    <h3>Ciclos de Facturación</h3>
+                    <p>Las facturas se emiten generalmente con periodicidad mensual o bimestral. Cada factura refleja el consumo realizado en el período anterior y tiene una fecha límite de pago, normalmente 20 días después de su emisión.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">💡</div>
+                    <h3>Optimización del Consumo</h3>
+                    <p>Analice su consumo para detectar oportunidades de ahorro. Las facturas incluyen gráficos comparativos que muestran su consumo actual frente a períodos anteriores y el promedio de hogares similares.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="payment-section" id="pagos">
+        <div class="container">
+            <h2 class="section-title">Métodos de Pago Disponibles</h2>
+            <p style="text-align: center; max-width: 800px; margin: 0 auto 2rem;">Ofrecemos múltiples opciones para realizar el pago de su factura eléctrica, adaptándonos a sus necesidades.</p>
+            
+            <div class="payment-methods">
+                <div class="payment-method">
+                    <h3><span class="method-icon">🏦</span> Domiciliación Bancaria</h3>
+                    <p>El método más cómodo y recomendado. El importe se cargará automáticamente en su cuenta bancaria.</p>
+                    <ul class="steps-list">
+                        <li>Solicite la domiciliación a través de nuestra web o app</li>
+                        <li>Proporcione los datos de su cuenta bancaria</li>
+                        <li>Confirme la autorización de cargo</li>
+                        <li>Reciba notificación previa antes de cada cargo</li>
+                    </ul>
+                </div>
+                
+                <div class="payment-method">
+                    <h3><span class="method-icon">💻</span> Pago Online</h3>
+                    <p>Realice el pago de forma rápida y segura a través de nuestra plataforma web o aplicación móvil.</p>
+                    <ul class="steps-list">
+                        <li>Inicie sesión en su cuenta personal</li>
+                        <li>Seleccione la factura pendiente de pago</li>
+                        <li>Elija su método de pago preferido (tarjeta, PayPal)</li>
+                        <li>Confirme la transacción</li>
+                    </ul>
+                </div>
+                
+                <div class="payment-method">
+                    <h3><span class="method-icon">🏛️</span> Entidades Financieras</h3>
+                    <p>Puede realizar el pago en cajeros automáticos o sucursales de entidades colaboradoras.</p>
+                    <ul class="steps-list">
+                        <li>Presente el código de barras de su factura</li>
+                        <li>Introduzca el importe exacto a pagar</li>
+                        <li>Conserve el comprobante de pago</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="faq-section" id="preguntas">
+        <div class="container">
+            <h2 class="section-title">Preguntas Frecuentes</h2>
+            <div class="faq-container">
+                <div class="faq-item">
+                    <div class="faq-question">
+                        ¿Qué sucede si no pago mi factura a tiempo?
+                        <span>+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Si no realiza el pago antes de la fecha de vencimiento, se iniciará un proceso de reclamación. Recibirá una notificación de impago y dispondrá de un período adicional para regularizar la situación. Pasado este período, podría aplicarse un recargo por demora y, en casos extremos, se podría proceder al corte del suministro eléctrico, previo aviso reglamentario.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        ¿Cómo puedo obtener un duplicado de mi factura?
+                        <span>+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Puede descargar duplicados de sus facturas accediendo a su área personal en nuestra web o aplicación móvil. También puede solicitarlo a través de nuestro servicio de atención al cliente, proporcionando los datos identificativos necesarios. El duplicado será idéntico al original y tendrá la misma validez legal.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        ¿Por qué ha aumentado el importe de mi factura?
+                        <span>+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>El aumento puede deberse a varios factores: incremento en su consumo eléctrico, cambios estacionales (mayor uso de calefacción o aire acondicionado), modificaciones en las tarifas reguladas, actualización de impuestos o el paso de una lectura estimada a una real. En su factura puede consultar el desglose detallado y comparar con períodos anteriores.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        ¿Existe algún plan especial de pago para personas con dificultades económicas?
+                        <span>+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Sí, disponemos de planes especiales para personas en situación de vulnerabilidad económica. Estos incluyen opciones de fraccionamiento de pago, tarifas sociales y prórrogas en los plazos de pago. Para acceder a estos planes, debe contactar con nuestro departamento de servicios sociales y acreditar su situación según los requisitos establecidos.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="contact-section" id="contacto">
+        <div class="container">
+            <h2 class="section-title">Estamos para Ayudarle</h2>
+            <div class="contact-grid">
+                <div class="contact-card">
+                    <div class="contact-icon">📞</div>
+                    <h3>Atención Telefónica</h3>
+                    <p>900 123 456</p>
+                    <p>Lunes a viernes: 8:00 - 22:00</p>
+                    <p>Sábados: 9:00 - 15:00</p>
+                </div>
+                
+                <div class="contact-card">
+                    <div class="contact-icon">📱</div>
+                    <h3>Aplicación Móvil</h3>
+                    <p>Descargue nuestra aplicación para gestionar sus facturas desde cualquier lugar.</p>
+                    <p>Disponible para iOS y Android</p>
+                </div>
+                
+                <div class="contact-card">
+                    <div class="contact-icon">🏢</div>
+                    <h3>Oficinas Comerciales</h3>
+                    <p>Visite nuestras oficinas para atención personalizada.</p>
+                    <p>Consulte la oficina más cercana en nuestro localizador</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>ElectriPago</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Sobre nosotros</a></li>
+                        <li><a href="#">Nuestros servicios</a></li>
+                        <li><a href="#">Responsabilidad social</a></li>
+                        <li><a href="#">Empleo</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Servicios</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Contratación</a></li>
+                        <li><a href="#">Cambio de titular</a></li>
+                        <li><a href="#">Modificación de potencia</a></li>
+                        <li><a href="#">Autoconsumo</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Ayuda</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Centro de ayuda</a></li>
+                        <li><a href="#">Reclamaciones</a></li>
+                        <li><a href="#">Quejas y sugerencias</a></li>
+                        <li><a href="#">Defensor del cliente</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Legal</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Aviso legal</a></li>
+                        <li><a href="#">Política de privacidad</a></li>
+                        <li><a href="#">Política de cookies</a></li>
+                        <li><a href="#">Términos y condiciones</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                <p>&copy; 2025 ElectriPago. Todos los derechos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Simple script to toggle FAQ answers
+        document.querySelectorAll('.faq-question').forEach(question => {
+            question.addEventListener('click', () => {
+                const answer = question.nextElementSibling;
+                const plusIcon = question.querySelector('span');
+                
+                if (answer.style.display === 'block') {
+                    answer.style.display = 'none';
+                    plusIcon.textContent = '+';
+                } else {
+                    answer.style.display = 'block';
+                    plusIcon.textContent = '-';
+                }
+            });
+        });
+
+        // Hide all answers initially
+        document.querySelectorAll('.faq-answer').forEach(answer => {
+            answer.style.display = 'none';
+        });
+    </script>
+</body>
+</html>
